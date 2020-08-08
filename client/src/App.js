@@ -1,40 +1,34 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
-import "./App.css";
 
-import Contract from "./contracts/Migrations.json";
+import CustomToken from "./contracts/CustomToken.json";
 import getWeb3 from "./getWeb3";
+import Header from "./components/Header";
+import Stats from "./components/Stats";
+import Cards from "./components/Cards";
+import "./styles.css";
 
 function App() {
   const [owner, setOwner] = useState();
   const [web3, setWeb3] = useState();
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const init = async () => {
       try {
-        // Get network provider and web3 instance.
         const web3 = await getWeb3();
-
-        // Use web3 to get the user's accounts.
         const accounts = await web3.eth.getAccounts();
-
-        // Get the contract instance.
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = Contract.networks[networkId];
+        const deployedNetwork = CustomToken.networks[networkId];
         const instance = new web3.eth.Contract(
-          Contract.abi,
+          CustomToken.abi,
           deployedNetwork && deployedNetwork.address
         );
-
-        // Set web3, accounts, and contract to the state, and then proceed with an
-        // example of interacting with the contract's methods.
         setWeb3(web3);
         setAccounts(accounts);
         setContract(instance);
       } catch (error) {
-        // Catch any errors for any of the above operations.
         alert(`Failed to load web3, accounts, or contract. Check console for details.`);
         console.error(error);
       }
@@ -44,8 +38,9 @@ function App() {
 
   useEffect(() => {
     const load = async () => {
-      const owner = await contract.methods.owner().call();
-      setOwner(owner);
+      const symbol = await contract.methods.symbol().call();
+      setOwner(symbol);
+      setIsLoading(false);
     };
     const isWeb3Valid = typeof web3 !== "undefined" && Object.keys(web3).length !== 0;
     const isAccountValid = typeof accounts !== "undefined" && Object.keys(accounts).length !== 0;
@@ -55,15 +50,27 @@ function App() {
     }
   }, [web3, accounts, contract]);
 
-  // TODO - Use another state (isLoading) instead of using web3
-  if (typeof web3 === "undefined") {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <div className="sk-chase">
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="App">
-      <h2>{owner}</h2>
-    </div>
+    <>
+      <Header />
+      <Stats />
+      <Cards />
+    </>
   );
 }
 
