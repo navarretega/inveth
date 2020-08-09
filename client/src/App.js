@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import CustomToken from "./contracts/CustomToken.json";
 import CustomTokenSale from "./contracts/CustomTokenSale.json";
@@ -9,11 +9,15 @@ import getWeb3 from "./getWeb3";
 import Home from "./components/Home";
 import Tokens from "./components/Tokens";
 import Loading from "./components/Loading";
+import Admin from "./components/Admin";
 
 // TODOS
 // Use try/catch when calling contracts methods
 // The contract instance object must have an address set | instance['_address'] (otherwise it means that the user is using a diff. network)
 // Verify useEffect on all components
+// Use container component
+// KYC - Use DB instead of localStorage
+// When using ...call() make sure to consider setting explicetely the account (from), otherwise it defaults to address[0] -- https://web3js.readthedocs.io/en/v1.2.7/web3-eth-contract.html#methods-mymethod-call
 
 function App() {
   const [eth, setEth] = useState({});
@@ -75,8 +79,11 @@ function App() {
     <EthContext.Provider value={eth}>
       <Router>
         <Switch>
-          <Route path="/buy">
+          <Route path="/buy" exact>
             <Tokens />
+          </Route>
+          <Route path="/admin" exact>
+            <Admin />
           </Route>
           <Route path="/">
             <Home />

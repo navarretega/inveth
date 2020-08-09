@@ -5,12 +5,11 @@ import EthContext from "../EthContext";
 function Kyc(props) {
   const eth = useContext(EthContext);
 
-  async function handleOnSubmit(e) {
+  function handleOnSubmit(e) {
     e.preventDefault();
-    const { accounts, kycInstance } = eth;
-    // Only the owner can do this!!! (set a diff UI)
-    await kycInstance.methods.setKycCompleted(accounts[0]).send({ from: accounts[0] });
-    props.setIsVerified(true);
+    const { accounts } = eth;
+    localStorage.setItem("kyc-account", JSON.stringify(accounts[0]));
+    props.setIsPending(true);
   }
 
   return (

@@ -5,10 +5,13 @@ import Header from "./Header";
 import Buy from "./Buy";
 import EthContext from "../EthContext";
 import Loading from "./Loading";
+import Container from "./Container";
+import Pending from "./Pending";
 
 function Tokens() {
   const eth = useContext(EthContext);
 
+  const [isPending, setIsPending] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,20 +19,53 @@ function Tokens() {
     const init = async () => {
       const { accounts, kycInstance } = eth;
       const kycCompleted = await kycInstance.methods.kycCompleted(accounts[0]).call();
-      setIsVerified(kycCompleted);
       setIsLoading(false);
+      setIsVerified(kycCompleted);
     };
     init();
   }, [isVerified]);
 
+  useEffect(() => {
+    const { accounts } = eth;
+    const pendingAccount = localStorage.getItem("kyc-account");
+    if (pendingAccount && JSON.parse(pendingAccount) === accounts[0]) {
+      setIsLoading(false);
+      setIsPending(true);
+    }
+  }, [isPending]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isPending) {
+    return (
+      <>
+        <Header />
+        <Container extra>
+          <Pending />
+        </Container>
+      </>
+    );
+  }
+
+  if (isVerified) {
+    return (
+      <>
+        <Header />
+        <Container>
+          <Buy />
+        </Container>
+      </>
+    );
+  }
+
   return (
     <>
       <Header />
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-24 mb-10">{isVerified ? <Buy /> : <Kyc setIsVerified={setIsVerified} />}</div>
-      )}
+      <Container>
+        <Kyc setIsPending={setIsPending} />
+      </Container>
     </>
   );
 }

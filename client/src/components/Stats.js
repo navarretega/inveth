@@ -9,7 +9,7 @@ function Stats() {
   useEffect(() => {
     const init = async () => {
       const { accounts, tokenInstance } = eth;
-      const tokens = await tokenInstance.methods.balanceOf(accounts[0]).call();
+      const tokens = await tokenInstance.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
       setTokens(tokens);
     };
     init();
