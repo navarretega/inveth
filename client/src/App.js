@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import CustomToken from "./contracts/CustomToken.json";
 import CustomTokenSale from "./contracts/CustomTokenSale.json";
 import KycContract from "./contracts/KycContract.json";
 import EthContext from "./EthContext";
 import getWeb3 from "./getWeb3";
-import Header from "./components/Header";
-import Stats from "./components/Stats";
-import Cards from "./components/Cards";
-import "./styles.css";
+import Home from "./components/Home";
+import Tokens from "./components/Tokens";
+import Loading from "./components/Loading";
+
+// TODOS
+// Use try/catch when calling contracts methods
+// The contract instance object must have an address set | instance['_address'] (otherwise it means that the user is using a diff. network)
+// Verify useEffect on all components
 
 function App() {
   const [eth, setEth] = useState({});
@@ -48,6 +53,9 @@ function App() {
   useEffect(() => {
     // This is optional
     // Making sure everything is ready before loading the page
+    // 1. The object must exists
+    // 2. The object must have at least one element
+    // 3. The contract instance object must have an address set | instance['_address'] (otherwise it means that the user is using a diff. network)
     const { web3, accounts, tokenInstance, tokenSaleInstance, kycInstance } = eth;
     const isWeb3Valid = typeof web3 !== "undefined" && Object.keys(web3).length !== 0;
     const isAccountValid = typeof accounts !== "undefined" && Object.keys(accounts).length !== 0;
@@ -60,25 +68,21 @@ function App() {
   }, [eth]);
 
   if (isLoading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <div className="sk-chase">
-          <div className="sk-chase-dot"></div>
-          <div className="sk-chase-dot"></div>
-          <div className="sk-chase-dot"></div>
-          <div className="sk-chase-dot"></div>
-          <div className="sk-chase-dot"></div>
-          <div className="sk-chase-dot"></div>
-        </div>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
     <EthContext.Provider value={eth}>
-      <Header />
-      <Stats />
-      <Cards />
+      <Router>
+        <Switch>
+          <Route path="/buy">
+            <Tokens />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </EthContext.Provider>
   );
 }
