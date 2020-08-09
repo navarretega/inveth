@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-gray-800 fixed top-0 w-full">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
