@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import CustomToken from "./contracts/CustomToken.json";
 import CustomTokenSale from "./contracts/CustomTokenSale.json";
 import KycContract from "./contracts/KycContract.json";
+import ProjectFactory from "./contracts/ProjectFactory.json";
 import EthContext from "./EthContext";
 import getWeb3 from "./getWeb3";
 import Home from "./components/Home";
@@ -18,6 +19,7 @@ import Admin from "./components/Admin";
 // Use container component
 // KYC - Use DB instead of localStorage
 // When using ...call() make sure to consider setting explicetely the account (from), otherwise it defaults to address[0] -- https://web3js.readthedocs.io/en/v1.2.7/web3-eth-contract.html#methods-mymethod-call
+// Improve interaction between ProjectFactory & DB
 
 function App() {
   const [eth, setEth] = useState({});
@@ -39,12 +41,16 @@ function App() {
         const kycNetwork = KycContract.networks[networkId];
         const kycInstance = new web3.eth.Contract(KycContract.abi, kycNetwork && kycNetwork.address);
 
+        const projectFNetwork = ProjectFactory.networks[networkId];
+        const projectFInstance = new web3.eth.Contract(ProjectFactory.abi, projectFNetwork && projectFNetwork.address);
+
         setEth({
           web3: web3,
           accounts: accounts,
           tokenInstance: tokenInstance,
           tokenSaleInstance: tokenSaleInstance,
           kycInstance: kycInstance,
+          projectFInstance: projectFInstance,
         });
       } catch (error) {
         alert(`Failed to load web3, accounts, or contract. Check console for details.`);
@@ -60,13 +66,21 @@ function App() {
     // 1. The object must exists
     // 2. The object must have at least one element
     // 3. The contract instance object must have an address set | instance['_address'] (otherwise it means that the user is using a diff. network)
-    const { web3, accounts, tokenInstance, tokenSaleInstance, kycInstance } = eth;
+    const { web3, accounts, tokenInstance, tokenSaleInstance, kycInstance, projectFInstance } = eth;
     const isWeb3Valid = typeof web3 !== "undefined" && Object.keys(web3).length !== 0;
     const isAccountValid = typeof accounts !== "undefined" && Object.keys(accounts).length !== 0;
     const isTokenInstanceValid = typeof tokenInstance !== "undefined" && Object.keys(tokenInstance).length !== 0;
     const isTokenSaleInstanceValid = typeof tokenSaleInstance !== "undefined" && Object.keys(tokenSaleInstance).length !== 0;
     const isKycInstanceValid = typeof kycInstance !== "undefined" && Object.keys(kycInstance).length !== 0;
-    if (isWeb3Valid && isAccountValid && isTokenInstanceValid && isTokenSaleInstanceValid && isKycInstanceValid) {
+    const isProjectFInstanceValid = typeof projectFInstance !== "undefined" && Object.keys(projectFInstance).length !== 0;
+    if (
+      isWeb3Valid &&
+      isAccountValid &&
+      isTokenInstanceValid &&
+      isTokenSaleInstanceValid &&
+      isKycInstanceValid &&
+      isProjectFInstanceValid
+    ) {
       setIsLoading(false);
     }
   }, [eth]);
