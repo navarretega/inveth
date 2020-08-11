@@ -5,12 +5,15 @@ import EthContext from "../EthContext";
 function Stats() {
   const eth = useContext(EthContext);
   const [tokens, setTokens] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
 
   useEffect(() => {
     const init = async () => {
-      const { accounts, tokenInstance } = eth;
+      const { accounts, tokenInstance, projectFInstance } = eth;
       const tokens = await tokenInstance.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
+      const totalBalance = await projectFInstance.methods.totalBalances(accounts[0]).call({ from: accounts[0] });
       setTokens(tokens);
+      setTotalBalance(parseInt(totalBalance) + parseInt(tokens));
     };
     init();
   }, [eth]);
@@ -43,8 +46,8 @@ function Stats() {
                   <dt className="text-base leading-6 font-normal text-gray-900">Your Balance</dt>
                   <dd className="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div className="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
-                      ???
-                      <span className="ml-2 text-sm leading-5 font-medium text-gray-500">OKH ~ $50 USD</span>
+                      {totalBalance}
+                      <span className="ml-2 text-sm leading-5 font-medium text-gray-500">OKH ~ {totalBalance} USD</span>
                     </div>
                     <div className="inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800 md:mt-2 lg:mt-0">
                       <svg

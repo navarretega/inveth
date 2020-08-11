@@ -149,7 +149,7 @@
         "id": 363,
         "nodeType": "ImportDirective",
         "scope": 411,
-        "sourceUnit": 909,
+        "sourceUnit": 953,
         "src": "27:55:3",
         "symbolAliases": [],
         "unitAlias": ""
@@ -164,10 +164,10 @@
               "id": 364,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 908,
+              "referencedDeclaration": 952,
               "src": "110:7:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$908",
+                "typeIdentifier": "t_contract$_Ownable_$952",
                 "typeString": "contract Ownable"
               }
             },
@@ -177,8 +177,8 @@
           }
         ],
         "contractDependencies": [
-          599,
-          908
+          643,
+          952
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -186,8 +186,8 @@
         "id": 410,
         "linearizedBaseContracts": [
           410,
-          908,
-          599
+          952,
+          643
         ],
         "name": "KycContract",
         "nodeType": "ContractDefinition",
@@ -339,7 +339,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 838,
+                  "referencedDeclaration": 882,
                   "src": "213:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -501,7 +501,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 838,
+                  "referencedDeclaration": 882,
                   "src": "316:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -734,7 +734,7 @@
         "id": 363,
         "nodeType": "ImportDirective",
         "scope": 411,
-        "sourceUnit": 909,
+        "sourceUnit": 953,
         "src": "27:55:3",
         "symbolAliases": [],
         "unitAlias": ""
@@ -749,10 +749,10 @@
               "id": 364,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 908,
+              "referencedDeclaration": 952,
               "src": "110:7:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$908",
+                "typeIdentifier": "t_contract$_Ownable_$952",
                 "typeString": "contract Ownable"
               }
             },
@@ -762,8 +762,8 @@
           }
         ],
         "contractDependencies": [
-          599,
-          908
+          643,
+          952
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -771,8 +771,8 @@
         "id": 410,
         "linearizedBaseContracts": [
           410,
-          908,
-          599
+          952,
+          643
         ],
         "name": "KycContract",
         "nodeType": "ContractDefinition",
@@ -924,7 +924,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 838,
+                  "referencedDeclaration": 882,
                   "src": "213:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1086,7 +1086,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 838,
+                  "referencedDeclaration": 882,
                   "src": "316:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1320,12 +1320,12 @@
         }
       },
       "links": {},
-      "address": "0x95eDb462401cee67E66210A9Ec549413465B9B16",
-      "transactionHash": "0xbfc12016be87f7ee4b5292d1707b05845d303a962bb6c3efe89490681bb29206"
+      "address": "0x9298405b45FE77Ca98F40A822508F1C67185Bc97",
+      "transactionHash": "0x56862b91a1818a05293de6482911dba285b8c9b74f349ae92afb68f6d3d86174"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-08-10T02:12:32.665Z",
+  "updatedAt": "2020-08-11T02:49:49.846Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {

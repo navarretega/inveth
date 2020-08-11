@@ -17,7 +17,7 @@ import Admin from "./components/Admin";
 // The contract instance object must have an address set | instance['_address'] (otherwise it means that the user is using a diff. network)
 // Verify useEffect on all components
 // Use container component
-// KYC - Use DB instead of localStorage
+// Use DB instead of localStorage
 // When using ...call() make sure to consider setting explicetely the account (from), otherwise it defaults to address[0] -- https://web3js.readthedocs.io/en/v1.2.7/web3-eth-contract.html#methods-mymethod-call
 // Improve interaction between ProjectFactory & DB
 
@@ -51,6 +51,7 @@ function App() {
           tokenSaleInstance: tokenSaleInstance,
           kycInstance: kycInstance,
           projectFInstance: projectFInstance,
+          projectFAddress: projectFNetwork.address,
         });
       } catch (error) {
         alert(`Failed to load web3, accounts, or contract. Check console for details.`);

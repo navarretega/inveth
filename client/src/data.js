@@ -1,6 +1,6 @@
 export const projectsDB = [
   {
-    address: "0x12E6F4388586A9133B9998DC5e4bA457D510059f",
+    address: "0x07C799160D562ce7298FDE9086e1fA1d0D0Eda97",
     imageUrl: "https://source.unsplash.com/9_XdzTnrBWQ",
     location: "Monterrey, Mexico",
     title: "Lorem ipsum dolor sit",
@@ -8,7 +8,7 @@ export const projectsDB = [
     minTokens: 50,
   },
   {
-    address: "0x08B038Edb17c0edC1d767d2F5b0a081Ba61C6540",
+    address: "0x34D0ba59Bc2B0cC261B19Cb38d914B73b43D6A3F",
     imageUrl: "https://source.unsplash.com/jU9VAZDGMzs",
     location: "Houston, United States",
     title: "Lorem ipsum dolor sit",

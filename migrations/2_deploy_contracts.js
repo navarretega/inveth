@@ -19,4 +19,6 @@ module.exports = async function (deployer) {
   const projectFactoryInstance = await ProjectFactory.deployed();
   projectFactoryInstance.createProject(50, CustomToken.address);
   projectFactoryInstance.createProject(100, CustomToken.address);
+  pAddresses = await projectFactoryInstance.getDeployedProjects();
+  console.log(pAddresses);
 };
